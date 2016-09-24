@@ -100,7 +100,7 @@ echo ------Output------
 java %~n1
 )
 ```
-然后sublime->preferences->browser packages，在打开的文件夹中新建java文件夹，然后在java文件夹新建名为JavaC.sublime-build的文件，复制粘贴进下面的代码
+然后sublime->preferences->browser packages，在打开的文件夹找到user文件夹并新建名为JavaC.sublime-build的文件，复制粘贴进下面的代码
 ```
 {
   "shell_cmd": "runJava.bat \"$file\"",
@@ -113,7 +113,37 @@ java %~n1
 
 之后编写的单个java文件就可以用`ctrl+shift+b`在sublime中运行了。但是有个问题就是不能接受输入。
 
-其他的比如python和cpp文件运行的配置自行百度。（我早就忘了怎么配置的了）
+另一种方法：
+打开Sublime Text 3，依次点击Preference, Browse Packages，在打开的窗口中双击User文件夹，新建文件JavaC.sublime-build，粘贴下面的代码并保存关闭：
+```
+{
+"cmd": ["javac","-encoding","UTF-8","-d",".","$file"],
+"file_regex": "^(...*?):([0-9]*):?([0-9]*)",
+"selector": "source.java",
+"encoding":"GBK",
+//执行完上面的命令就结束
+
+// 下面的命令需要按Ctrl+Shift+b来运行
+"variants":
+    [
+        {
+            "name": "Run",
+            "shell": true,
+            "cmd" :  ["start","cmd","/c", "java ${file_base_name} &echo. & pause"],
+            // /c是执行完命令后关闭cmd窗口,
+            // /k是执行完命令后不关闭cmd窗口。
+            // echo. 相当于输入一个回车
+            // pause命令使cmd窗口按任意键后才关闭
+            "working_dir": "${file_path}",
+            "encoding":"GBK"
+        }
+    ]
+}
+```
+
+ctrl+B编译，Ctrl+shift+b运行。
+
+其他的比如python和cpp文件运行的配置自行百度。（我已经忘了怎么配置的了）
 
 * sublimelinter代码错误提示工具，作为一个编辑器没有错误提示总觉得不是很满足，所幸有这款插件。
 下面以c++文件为例讲下怎么配置。先安装[cppcheck](http://cppcheck.net/)，将cppcheck安装路径添加到系统环境变量path中，比如我的是：`H:\Program Files\cppcheck`,然后重启电脑。
