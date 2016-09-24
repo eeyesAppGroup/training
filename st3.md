@@ -15,18 +15,31 @@ import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.
 以下插件自己选择需要的安装
 
 * ConvertToUTF8：
+
 GBK编码兼容，虽然在ST3中能输入中文并正常显示，但是打开含有中文字符的文件时，ST3会显示乱码。解决中文乱码问题，需要安装ConvertToUTF8插件。OS X或Linux还需要插件Codecs33。
+
 * Terminal：
+
 在当前文件所在位置打开终端。
+
 * IMESupport：
+
 中文输入法跟随光标
+
 * sidebarenhancement
+
 侧边栏增强工具
+
 * AdvancedNewFile
+
 快速新建文件，快捷键Ctrl+Shift+N
+
 * BracketHighlighter
+
 高亮显示配对括号以及当前光标所在区域。
+
 * sublimeTmpl
+
 快速新建文件模板
 Default key bindings
 ```
@@ -37,18 +50,42 @@ ctrl+alt+p php
 ctrl+alt+r ruby
 ctrl+alt+shift+p python
 ```
+
 * MarkdownPreview
+
 顾名思义，markdown文件预览
+
 * markdown Extended
+
 高亮markdown
+
 * sublimeGit
+
 在sublime中使用命令行的git插件
+
+* c++ snippets
+
+c++自动补全插件，sublime也可以自己配置补全规则，改json文件就行了。
+
+* Seti_UI
+
+一款酷炫的主题：
+
+![](http://img4.07net01.com/upload/images/2016/02/13/2067925131823501.png)
+
+* Java​IME
+
+java代码自动补全，用法见：[https://packagecontrol.io/packages/JavaIME](https://packagecontrol.io/packages/JavaIME)
+
+![](https://packagecontrol.io/readmes/img/5fc482f47636fb38b59ad9e3d4520d1d939451f2.gif)
+
 
 ---
 
 下面是一些重量级设置
 
 * sublime中运行java程序：
+
 在jdk的bin目录下新建runJava.bat，内容如下：
 ```
 @echo off
