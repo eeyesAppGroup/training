@@ -6,4 +6,5 @@
       * [老司机补充](https://github.com/eeyesAppGroup/training/blob/master/test/大纲.txt)
       * [eclipse和sublime小技巧](https://github.com/eeyesAppGroup/training/blob/master/eclipse和sublime的几个小技巧.pdf)
       * [sublime text 3配置教程](https://github.com/eeyesAppGroup/training/blob/master/st3.md)
+      * [习题](https://github.com/eeyesAppGroup/training/blob/master/javatask1.md)
 * 第二次培训：java进阶
