@@ -7,4 +7,5 @@
       * [eclipse和sublime小技巧](https://github.com/eeyesAppGroup/training/blob/master/tools%20%26%20tricks/eclipse%E5%92%8Csublime%E7%9A%84%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%8A%80%E5%B7%A7.pdf)
       * [sublime text 3配置教程](https://github.com/eeyesAppGroup/training/blob/master/tools%20%26%20tricks/sublime%20text%203%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.md)
       * [习题](https://github.com/eeyesAppGroup/training/blob/master/lesson_1/task/javatask1.md)
-* 第二次培训：java进阶
+* [第二次培训：java进阶](http://blog.bboylin.com/eeyes/java.html#slide1)
+* 第三次培训：android UI控件
