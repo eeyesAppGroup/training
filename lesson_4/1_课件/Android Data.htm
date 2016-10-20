@@ -1,0 +1,334 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.2
+    site: https://github.com/ksky521/nodePPT
+    date: 
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Android应用中的数据操作 - By 万旭</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.green.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Android应用中的数据操作</h1>
+<h2> </h2>
+<p><small>演讲者：万旭</small></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>UI复习</h2>
+
+</hgroup><article>
+
+<ul>
+<li>基本组件使用与事件处理（OnClickListener等）</li>
+<li>页面（Activity）间的跳转与数据传递（Intent与Bundle）</li>
+<li>ListView的用法（列表item中的子组件与数据内容的映射）</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>存储数据的几种方式</h2>
+
+</hgroup><article>
+
+<ul>
+<li>SharedPreferences</li>
+<li>Android自带的SQLite3数据库</li>
+<li>简化的数据库存储——ORM(Object Relation Mapping)</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>SharedPreferences</h2>
+
+</hgroup><article>
+
+<pre><code lang="java">//存储数据
+public void saveShowState(boolean state){
+    //1.取得SP对象
+    SharedPreferences sp=getSharedPreferences(WelcomeActivity.APP_NAME,MODE_PRIVATE);
+    //2.通过SP对象的edit()取得Editor对象
+    SharedPreferences.Editor editor=sp.edit();
+    //3.按键值存储数据
+    editor.putBoolean(WelcomeActivity.KEY_SHOW_WELCOME,state);
+    //4.存储完后一定要记得提交
+    editor.commit();
+}
+//获取数据
+public static final String APP_NAME="myapplication";
+public static final String KEY_SHOW_WELCOME="show_welcome";
+public static boolean isShowWelcome(Context context){
+    //1.取得SP对象
+    SharedPreferences sp=context.getSharedPreferences(APP_NAME,MODE_PRIVATE);
+    //2.按键值取数据并指定缺省值
+    return sp.getBoolean(KEY_SHOW_WELCOME,true);
+}
+</code>
+</pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>数据库</h2>
+
+</hgroup><article>
+
+<ul>
+<li>1.什么是数据库？<h5>软件+数据文件</h5>
+<h5>通过一张张表（table）的形式存储数据</h5>
+</li>
+<li>2.为什么要用数据库？<h5>高效管理数据，像查字典一样</h5>
+</li>
+<li>3.Android开发中怎么用数据库？<h5>Android使用Sqlite3（其他数据库还有Access，Oracle，MySQL等），SDK提供一些类帮助我们进行数据库操作</h5>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><h2>在Android应用中使用数据库</h2></p>
+<ul>
+<li>创建表及初始化：
+</br>
+1.创建一个工具类（如DBHelperSQL）继承自SQLiteOpenHelper
+</br>
+2.重写构造方法，指定数据库名称与版本等
+</br>
+3.重写DBHelperSQL的OnCreate方法，在此方法中执行数据库语句完成建表操作
+</br>
+4.重写OnUpgrade方法</li>
+<li>数据操作：
+</br>
+1.在需要使用数据库的类中创建DBHelperSQL对象，并通过该对象取得可读写的SQLiteDatabase对象
+</br>
+2.调用SQLiteDatabase对象的insert，delete，query，update方法完成增、删、查、改操作
+</br>
+3.关闭数据库</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2><h2>ORM</h2></h2>
+<ul>
+<li>什么是ORM？
+</br>
+<strong>百科：</strong>对象关系映射（英语：Object Relation Mapping，简称ORM，或O/RM，或O/R mapping），是一种程序技术，用于实现面向对象编程语言里不同类型系统的数据之间的转换。从效果上说，它其实是创建了一个可在编程语言里使用的“虚拟对象数据库”。
+</br>
+<strong>我的理解：</strong>ORM是数据库与程序之间的中间层，封装底层数据库操作，对程序开放对象操作接口，使得我们的程序只需要操作对象就可实现数据库中的复杂操作，戴上ORM这幅眼镜来看，原始的存储结构化数据的数据库变成了<strong>存储对象</strong>的数据库。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2><h2>ORM的使用(ORMLite框架)</h2></h2>
+<ul>
+<li>导入项目依赖
+</br>
+<img src="./1.png" >
+<img src="./2.png" ></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><h2>ORM的使用(ORMLite框架)</h2></p>
+<ul>
+<li>根据自己应用的业务配置映射<pre><code lang="java">//创建需要映射至数据库的类，也称Bean类
+public class User {
+  //1.加注解将该成员映射至数据库中的字段，generateId=true表示主键
+  @DatabaseField(generatedId = true)
+  int id;
+  //2.index表示排序依据
+  @DatabaseField(index = true)
+  String name;
+  ……
+  //3.必须有一个空的构造方法
+  public User() {
+      // needed by ormlite
+  }
+  //4.所有映射到数据库的成员必须有set与get方法
+  public int getId() {
+      return id;}
+  public void setId(int id) {
+      this.id = id;}
+  ……
+}
+</code>
+</pre></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><h2>ORM的使用(ORMLite框架)</h2></p>
+<ul>
+<li>继承OrmLiteSqliteOpenHelper，重写相关方法，并提供Dao对象的获取方法<div style="width:1000px;">
+<pre><code lang="java">//重写相关方法
+public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
+  //通过User类创建表
+  TableUtils.createTable(connectionSource, User.class);
+}
+@Override
+public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i1) {
+  //通过User类销毁表
+  TableUtils.dropTable(connectionSource, User.class, true);
+  // after we drop the old databases, we create the new ones
+  onCreate(sqLiteDatabase, connectionSource);
+}
+Dao<User,Integer> userDao=null;
+//单例模式，保证只有一个Dao对象
+public Dao<User, Integer> getUserDao() throws SQLException {
+  if (userDao == null) {
+      userDao = getDao(User.class);}
+  return userDao;
+}
+</code>
+</pre>
+</div></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><h2>ORM的使用(ORMLite框架)</h2></p>
+<ul>
+<li>调用Dao对象的各方法实现增删查改<div style="width:1000px;">
+<pre><code lang="java">//通过ORM操作数据库数据的方法
+DBHelperORM helper;
+Dao<User, Integer> dao;
+//1.通过helper取得dao
+helper = new DBHelperORM(this);
+dao = helper.getUserDao();
+//2.增加数据
+User user = new User(name, age, phone);
+dao.create(user);
+//3.更新数据
+dao.update(user);
+//4.查询数据
+List<User> userList=dao.queryForAll();
+//5.删除数据
+dao.delete(user);
+</code>
+</pre>
+</div></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>Study further</h2>
+<ul>
+<li>参考sqlite.org学习更多的SQL语法，实现更复杂的条件查询，多表查询等</li>
+<li>参考Ormlite官方文档，可实现单独指定表名，字段名，外键，多表查询等</li>
+<li>相关资料
+</br>
+<a href="http://sqlite.org/lang.html" target="_blank">SQLite语法</a>
+</br>
+<a href="http://blog.csdn.net/lmj623565791/article/details/39122981" target="_blank">Android大牛张鸿洋关于Ormlite的博客</a>
+</br>
+<a href="http://ormlite.com/" target="_blank">风格极简的ORMlite官网</a></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>作业</h2>
+
+</hgroup><article>
+
+<blockquote>
+<p>做一款<strong>好友档案</strong>，记录好友的头像，照片，联系方式，口头禅，共同经历过的难忘的事等等……</p>
+</blockquote>
+<p>and</p>
+<blockquote class="pull-right">
+<p>要求：界面美观，逻辑正确，能增删查改，使用SQLite，ORMLite或者其它好用的ORM框架均可</p>
+</blockquote>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>Thank you!</h2>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.2</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'slide3',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+<script src="./js/demo.js"></script>
+<link rel="stylesheet" href="./css/demo.css">
+<script src="./js/zoom.js"></script>
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>
