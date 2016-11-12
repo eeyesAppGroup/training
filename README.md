@@ -11,3 +11,4 @@
 * 第三次培训：android UI控件
 * [第四次：数据存储](http://androiddeveloper.site/4/)
 * [第五次：Android网络编程](https://github.com/futureshine/AndroidNetWorkPrograming)
+* [第六次：简单App的制作](https://github.com/futureshine/SimpleDemo)
