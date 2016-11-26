@@ -13,3 +13,4 @@
 * [第五次：Android网络编程](https://github.com/futureshine/AndroidNetWorkPrograming)
 * [第六次：简单App的制作](https://github.com/futureshine/SimpleDemo)
 * [第七次：新技术+项目+大作业](http://blog.bboylin.com/eeyes/last.html#slide1)
+* [piasy:clarify the way to master RxJava](http://blog.piasy.com/talks/RxJava-DroidCon-Beijing-Piasy/assets/player/KeynoteDHTMLPlayer.html#0)
